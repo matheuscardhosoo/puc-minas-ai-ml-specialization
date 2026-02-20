@@ -189,7 +189,64 @@ Grandes organizações exemplificam o uso de dados para expansão e adaptação 
 
 ---
 
-## Visão geral sobre Data Mining
+## 2.1. O que é Data Discovery?
+
+O conceito de Data Discovery representa uma evolução no modo como os dados são explorados dentro das organizações. Enquanto o BI tradicional dependia de relatórios estáticos e pré-definidos pela TI, o Data Discovery foca na exploração interativa e na autonomia do usuário.
+
+### Definição e Propósito
+
+Data Discovery é o processo que permite aos usuários desenvolver e refinar visualizações e análises de dados, sejam eles estruturados (bancos de dados tradicionais) ou não estruturados (textos, logs, redes sociais).
+
+- **Termos de Pesquisa**: A análise utiliza termos de busca e navegação intuitiva em vez de consultas complexas em SQL.
+- **Agilidade**: Elimina a dependência excessiva do setor de TI para a criação de relatórios, reduzindo o tempo entre a pergunta de negócio e a resposta visual.
+- **Acessibilidade**: As ferramentas modernas permitem o acesso e a composição de informações em múltiplos dispositivos, como tablets e smartphones, promovendo a análise em todo lugar.
+
+#### Etapas do Data Discovery
+
+O processo de descoberta não se resume apenas a olhar para um gráfico; ele segue um fluxo de amadurecimento:
+
+1. **Preparação e Integração**: Coleta de dados de fontes diversas.
+2. **Visualização de Dados**: Transformação dos dados em representações visuais para identificação de padrões.
+3. **Descoberta de Informações**: Fase exploratória onde insights ocultos são revelados através da interação com os dados.
+4. **Influência nos Negócios**: O momento em que a análise gera ações concretas e decisões estratégicas.
+
+#### Níveis de Análise
+
+O Data Discovery serve de base para diferentes níveis de profundidade analítica:
+
+- **Análise Descritiva e Diagnóstica**: Foca no que aconteceu e por que aconteceu.
+- **Análise Preditiva**: Utiliza modelos estatísticos e algoritmos de ML para identificar o que provavelmente acontecerá.
+- **Análise Prescritiva**: Sugere caminhos e ações para otimizar os resultados futuros.
+
+```mermaid
+graph LR
+    A[Dados Brutos] --> B[Visualização]
+    B --> C[Descoberta/Insights]
+    C --> D[Ação no Negócio]
+    D --> E{Análise Avançada}
+    E --> F[Preditiva]
+    E --> G[Prescritiva]
+```
+
+### Ferramentas e Comparação Técnica
+
+O professor estabelece uma comparação entre o uso de ferramentas visuais (como Tableau e Power BI) e o uso de linguagens de programação (Python e R) no contexto de descoberta de dados.
+
+#### Ferramentas Visuais (Tableau/Power BI)
+
+- **Intuição**: São ferramentas de arrastar e soltar (drag-and-drop), facilitando a navegação interativa.
+- **Público**: Voltadas para usuários de negócio e analistas que precisam de respostas rápidas sem necessariamente dominar código.
+- **Visualização**: Possuem um apelo visual muito forte e facilitam o storytelling de dados.
+
+#### Linguagens de Programação (Python/R)
+
+- **Poder de Previsão**: Embora ferramentas visuais ofereçam algumas previsões, linguagens como Python e R permitem a construção de modelos de ML muito mais complexos e customizados.
+- **Curva de Aprendizado**: Exigem conhecimento de algoritmos e sintaxe, o que pode ser uma barreira para usuários puramente de negócio.
+- **Integração**: É comum integrar o processamento feito em Python/R com a visualização final em ferramentas de Data Discovery para unir o poder estatístico com a facilidade visual.
+
+### Conexão com IA/ML
+
+O Data Discovery é frequentemente a etapa de Análise Exploratória de Dados (EDA) em um projeto de Machine Learning. Antes de treinar qualquer modelo, o cientista de dados utiliza técnicas de descoberta para entender a distribuição dos dados, identificar correlações e detectar anomalias (outliers) que poderiam prejudicar a performance do algoritmo. A descoberta de dados bem feita reduz o erro na escolha das variáveis (feature selection) para a Inteligência Artificial.
 
 ---
 
