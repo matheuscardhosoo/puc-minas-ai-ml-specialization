@@ -310,6 +310,67 @@ O conceito de Analytics Sandbox (citado nos fluxogramas de governança) é exata
 
 ---
 
+## 2.3 Diferenças entre Self-Service Analytics e BI Tradicional
+
+### Benefícios e Implantação do Self-Service Analytics
+
+A transição de um modelo de Business Intelligence centralizado e tradicional para uma cultura de Self-Service Analytics gera impactos positivos tanto para os consumidores da informação quanto para os mantenedores da infraestrutura.
+
+#### Benefícios Claros (Negócios vs. TI)
+
+- **Para a Área de Negócios**: Garante a liberdade e a autonomia para que o próprio usuário manipule os dados em seu ambiente, permitindo a construção rápida de relatórios e a exploração contínua de novas perguntas sem depender de filas de chamados.
+- **Para a Área de TI**: Reduz drasticamente o tempo e o custo operacional gastos na criação de relatórios estáticos, liberando os profissionais técnicos e engenheiros de dados para atuar no que realmente importa: arquitetura, governança e preparo de bases para análises avançadas (como Machine Learning).
+
+#### Recomendações de Implantação (O Método Gartner)
+
+Implementar o SSA não é instalar um software e liberar o acesso a todos simultaneamente. O Instituto Gartner recomenda um ciclo contínuo e evolutivo para garantir a governança e a usabilidade:
+
+```mermaid
+graph LR
+    A[Planejar] --> B[Pilotar]
+    B --> C[Implantar]
+    C --> D[Aprender/Avaliar]
+    D --> E[Usar]
+    E --> F[Expandir/Suportar]
+    F --> A
+
+    style B fill:#e6e6fa,stroke:#333,stroke-width:2px
+```
+
+A criação de um **projeto piloto** com usuários dispostos a testar e homologar os dados é a etapa mais crítica antes de abrir o catálogo de dados para a organização inteira.
+
+### Estudo de Caso Prático: Acidentes de Trânsito em BH
+
+Para conectar a teoria do Data Discovery com a prática analítica, a disciplina utiliza um conjunto de bases de dados reais e abertas da Prefeitura de Belo Horizonte (PBH) sobre acidentes de trânsito.
+
+#### Entendendo a Base de Dados
+
+O projeto envolve a manipulação de quatro bases distintas (boletins de ocorrência, veículos, localização/logradouros e pessoas envolvidas). O principal desafio técnico em modelagens relacionais como essa é encontrar a chave comum (primary key) para cruzar as informações, que neste caso é o número do Boletim de Ocorrência (B.O.).
+
+> _Na vida real, bases públicas ou corporativas apresentam falhas de preenchimento e valores nulos constantes, exigindo rigor no tratamento antes da análise._
+
+#### A Metodologia da Entrevista
+
+Antes de arrastar gráficos em uma ferramenta visual, o Cientista de Dados ou Analista de BI precisa entender o domínio do problema. A abordagem correta inicia-se com uma entrevista estruturada junto aos especialistas do negócio:
+
+1. **Preparação**: Notificar os participantes e enviar as perguntas com antecedência para alinhamento.
+2. **Execução**: Apresentar os objetivos, definir o tempo limite e realizar a entrevista estimulando o usuário a deliberar sobre o cenário.
+3. **Formalização**: Registrar tudo (gravação ou anotações) e, obrigatoriamente, gerar uma ata de aprovação. O aceite formal do usuário ("feedback") garante que as análises futuras atenderão às regras de negócio corretas.
+
+#### Levantamento de Hipóteses (Perguntas de Negócio)
+
+A partir da entrevista, levantam-se as perguntas norteadoras que guiarão a descoberta de dados no painel interativo. Exemplos do estudo de caso:
+
+- Existe relação matemática entre o volume de tráfego e o aumento no número de acidentes?
+- Quais os tipos de acidentes mais comuns e como eles se correlacionam com horários específicos ou pavimentação local?
+- Qual é o perfil do condutor (idade, tempo de carteira, indícios de embriaguez) envolvido nas fatalidades?
+
+### Conexão com IA e Machine Learning (Feature Selection)
+
+O conhecimento de negócio extraído nas entrevistas do processo de Data Discovery é vital para os modelos de IA. Quando um analista identifica visualmente ou por meio de entrevistas (ex: "o perfil de homens de vinte e poucos anos tem mais sinistros em seguros de veículos") que determinadas variáveis influenciam o resultado final, ele está realizando uma etapa primária de Seleção de Atributos (Feature Selection). Entregar essas variáveis já filtradas e entendidas ao algoritmo de Machine Learning aumenta significativamente a acurácia e o poder preditivo do modelo, garantindo que o algoritmo não perca tempo processando "ruído".
+
+---
+
 ## Análise Descritiva
 
 ---
