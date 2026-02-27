@@ -373,6 +373,80 @@ O conhecimento de negócio extraído nas entrevistas do processo de Data Discove
 
 ## Análise Descritiva
 
+### Introdução
+
+A Análise Descritiva é a fase inicial do processo de estudo de dados. Seu objetivo é organizar, resumir e descrever um conjunto de características observadas, permitindo que o analista entenda com clareza o que está acontecendo na organização e como chegamos a determinado cenário.
+
+#### Propósito e Características
+
+- **Identificação de Padrões e Anomalias**: Permite mapear tendências recorrentes, além de detectar dados dispersos (outliers) e registros incorretos que não seguem o comportamento geral do conjunto.
+- **Imparcialidade**: A principal vantagem desta etapa é conferir imparcialidade ao estudo, evitando que a empresa tome decisões baseadas puramente na intuição ou em juízos de valor.
+- **Qualidade da Base**: Projetos que ignoram a adequação dos dados correm o risco de gerar respostas muito precisas para os problemas errados. A confiabilidade, precisão, granularidade e atualidade dos dados são métricas vitais para o sucesso da análise.
+
+### Taxonomia de Dados (Tipos de Variáveis)
+
+Compreender a natureza de cada dado é um fundamento estatístico essencial para definir qual tratamento ou algoritmo aplicar. As variáveis dividem-se em dois grandes grupos:
+
+#### Variáveis Qualitativas (Categóricas)
+
+Representam características que não possuem significado quantitativo (não faz sentido calcular a média de uma categoria).
+
+- **Nominais**: Não existe uma ordem ou hierarquia natural entre as categorias.
+  - **Exemplos**: Sexo, cor dos olhos, estado civil, região.
+- **Ordinais**: Existe uma ordenação clara ou ranking entre as categorias.
+  - **Exemplos**: Nível de escolaridade (Ensino Médio, Superior), classificação de risco (baixo, médio, alto), classe social.
+
+#### Variáveis Quantitativas (Numéricas)
+
+Representam valores reais, provenientes de contagens ou medições.
+
+- **Discretas**: Resultam de contagens, assumindo apenas números inteiros (finitos ou enumeráveis).
+  - **Exemplos**: Número de filhos, quantidade de itens vendidos, quantidade de acidentes.
+- **Contínuas**: Resultam de medições, podendo assumir qualquer valor dentro de uma reta real (aceitam casas decimais).
+  - **Exemplos**: Peso, altura, pressão arterial, faturamento financeiro.
+
+**Atenção Analítica**: Nem toda variável representada por números é quantitativa. Um número de CPF, um CEP residencial ou o número da carteira de identidade são, na verdade, variáveis qualitativas nominais (servem apenas como rótulos). Da mesma forma, uma variável contínua como "Idade" pode ser transformada em qualitativa ordinal se for agrupada em faixas etárias.
+
+### Distribuição de Frequências
+
+Para interpretar volumes extensos de dados, a estatística descritiva recorre à distribuição de frequências, que pode ser demonstrada em tabelas ou gráficos:
+
+- **Frequência Absoluta**: A contagem direta de indivíduos ou ocorrências dentro de uma classe/categoria.
+- **Frequência Relativa**: A representação percentual que aquela classe tem sobre o volume total.
+- **Frequência Acumulada**: A soma sucessiva das frequências, excelente para observar volumes acumulados ao longo do tempo ou de categorias ordinais.
+
+Para **variáveis contínuas**, devido à infinidade de valores possíveis, é necessário criar intervalos de classes (ex: Peso de 25,0 a 49,9 kg). Nesses casos, a visualização mais indicada para acompanhar a distribuição é o Histograma.
+
+### Séries Temporais
+
+O tempo é uma dimensão fundamental na análise descritiva. Uma Série Temporal consiste em um conjunto de observações sobre uma variável ordenado no tempo (diariamente, mensalmente, anualmente).
+
+- **Objetivo**: Conhecer o comportamento da série ao longo do tempo, identificando crescimentos, estabilidades ou declínios.
+- **Sazonalidade**: É a sucessão regular de picos e vales. Por exemplo, o aumento do fluxo de passageiros de avião em meses de férias escolares segue um padrão cíclico.
+- **Transição para o Futuro**: O mapeamento exato de uma série temporal e seus padrões históricos (análise descritiva) é o que permite alimentar modelos estatísticos para projetar cenários e tendências (análise preditiva).
+
+### O Ciclo da Análise Descritiva
+
+Para garantir que a análise responda de forma objetiva aos dilemas do negócio, o profissional deve seguir um fluxo estruturado:
+
+```mermaid
+graph LR
+    A[1. Identificação do Problema] --> B[2. Coleta de Dados]
+    B --> C[3. Crítica dos Dados]
+    C --> D[4. Apresentação dos Dados]
+    D --> E[5. Análise e Interpretação]
+```
+
+1. **Identificação do Problema**: Entender claramente qual é a dúvida ou métrica que o usuário de negócios precisa validar.
+2. **Coleta de Dados**: Buscar os dados nas fontes corretas.
+3. **Crítica dos Dados**: Avaliar a qualidade, tratar inconsistências e preparar a base. O dado bruto por si só não resolve o problema.
+4. **Apresentação dos Dados**: Construção de dashboards, gráficos adequados e aplicação de Data Storytelling.
+5. **Análise e Interpretação**: O momento em que o tomador de decisão consome a informação e define os rumos de forma embasada, substituindo o achismo pela cultura orientada a dados.
+
+### Conexão com IA e Machine Learning (Engenharia de Recursos)
+
+A taxonomia dos dados é um dos conceitos mais importantes antes de treinar qualquer modelo de Machine Learning. Os algoritmos matemáticos não conseguem processar palavras como "Alto" ou "Baixo". Portanto, o Cientista de Dados precisará aplicar técnicas de transformação (como One-Hot Encoding para dados nominais ou Label Encoding para ordinais) para converter variáveis qualitativas em matrizes numéricas interpretáveis pelas redes neurais. Dominar a estatística descritiva é a garantia de que as variáveis de entrada (features) terão a qualidade necessária para produzir predições com alta acurácia.
+
 ---
 
 ## Análise Preditiva
