@@ -534,7 +534,59 @@ A frase de encerramento do professor é o maior insight para a implementação d
 
 ---
 
-## 2.6 Análise Prescritiva.
+## 2.6 Análise Prescritiva
+
+### O Conceito de Análise Prescritiva
+
+A Análise Prescritiva é o nível mais elevado e complexo no modelo de maturidade de Business Intelligence e Data Discovery. Enquanto as fases anteriores mapeiam o cenário, a fase prescritiva sugere a ação.
+
+#### O Gráfico de Valor vs. Complexidade
+
+Observando o gráfico de maturidade analítica, nota-se uma evolução clara tanto em complexidade técnica quanto em valor gerado para o negócio:
+
+- **Análise Descritiva**: O que aconteceu?
+- **Análise Preditiva**: O que vai acontecer?
+- **Análise Prescritiva**: O que fazer quando acontecer?
+
+#### Definição
+
+A análise prescritiva vai além de prever resultados futuros, sugerindo ações e aconselhando sobre possíveis cenários. Ela representa a síntese de Big Data, ciências matemáticas, regras de negócios e Machine Learning para tomar previsões e, em seguida, sugerir caminhos de decisão otimizados. Um grande diferencial deste modelo é a sua capacidade de ser automatizado, retirando a obrigatoriedade da intervenção humana em decisões de rotina.
+
+### Como Funciona a Análise Prescritiva?
+
+O foco da prescrição é encontrar o melhor curso de ação para uma determinada situação, visualizando o efeito futuro de uma decisão antes mesmo dela ser tomada.
+
+#### Mecânica de Funcionamento
+
+1. **Avaliação** de Múltiplos Futuros: A ferramenta prevê não apenas um, mas múltiplos futuros possíveis com base em diferentes escolhas.
+2. **Recomendação**: Após avaliar as variáveis, o sistema recomenda o melhor caminho a seguir.
+3. **Abastecimento Contínuo**: Para funcionar, o modelo consome volumes massivos de dados estruturados e não estruturados (históricos, dados transacionais da empresa e feeds em tempo real externos).
+4. **Regras de Negócio e IA**: O sistema cruza os dados alimentados com regras de negócio rígidas e algoritmos de Machine Learning.
+5. **Alto Processamento**: Por envolver o cálculo contínuo de probabilidades em tempo real, esse modelo exige alto poder de processamento computacional
+
+```mermaid
+graph TD
+    A[Dados Históricos + Tempo Real] --> B[Modelos Preditivos]
+    B --> C{Simulação de Cenários}
+    C -- Decisão A --> D[Impacto X]
+    C -- Decisão B --> E[Impacto Y]
+    D -. Algoritmo Otimizador .-> F
+    E -. Algoritmo Otimizador .-> F[Ação Recomendada / Automatizada]
+
+    style F fill:#e6e6fa,stroke:#333,stroke-width:2px
+```
+
+### Aplicações Práticas e Estudos de Caso
+
+A análise prescritiva está altamente presente no cotidiano tecnológico atual. O professor destaca três exemplos clássicos:
+
+- **Waze / Google Maps**: A ferramenta não apenas prevê que haverá trânsito à frente (análise preditiva), mas age prescrevendo a melhor rota alternativa. Se o motorista ignora a instrução (erra a rua), o sistema processa a nova informação instantaneamente e recalcula prescrevendo uma nova ação.
+- **Mercado Financeiro (Algorithmic Trading)**: Robôs de investimento avaliam o histórico de ações e o cenário global em tempo real. Se uma ação atinge um valor X e o modelo prevê uma queda (predição), o próprio sistema dispara automaticamente uma ordem de venda para evitar perdas (prescrição executada).
+- **Spotify / Serviços de Streaming**: Utiliza motores de recomendação avançados. Se o algoritmo prescreve uma música e o usuário a pula ("skip"), o sistema entende isso como um dado de feedback negativo, calibra o modelo quase em tempo real e altera a próxima prescrição musical.
+
+### Conexão com IA e Machine Learning (Aprendizado por Reforço)
+
+A análise prescritiva é a porta de entrada para a Inteligência Artificial Autônoma. Em algoritmos de Reinforcement Learning (Aprendizado por Reforço), um "Agente" (a IA) é colocado em um ambiente para tomar decisões. Cada decisão gera uma consequência (recompensa positiva ou negativa). O Waze recalculando a rota ou o Spotify alterando a música após um "skip" são exemplos de sistemas que prescrevem ações e ajustam seus modelos baseados no retorno que obtêm do ambiente, buscando sempre otimizar a "recompensa" (como levar o usuário mais rápido ou mantê-lo ouvindo música por mais tempo).
 
 ---
 
