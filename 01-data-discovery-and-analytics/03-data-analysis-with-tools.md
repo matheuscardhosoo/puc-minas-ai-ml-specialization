@@ -210,5 +210,100 @@ Nota: Referência Tableau: Construir uma história exige planejar o arco narrati
 
 ---
 
+## Microsoft Power BI
+
+### Entendimento da Base e Extração de Dados (ETL)
+
+A construção de um painel no Power BI inicia-se muito antes da criação de gráficos. A fase de entendimento do negócio e preparação dos dados é vital para a performance e acurácia do modelo.
+
+#### Compreensão do Domínio
+
+O professor utiliza uma base de dados de chamados de atendimento (Tickets/Helpdesk) para ilustrar o processo. Antes de importar, o analista deve mapear a granularidade (cada linha é um ticket único) e o significado de colunas críticas, como Status, Data de Abertura, Departamento e Nível de Satisfação.
+
+#### Power Query: O Motor de Transformação
+
+Ao utilizar a opção "Obter Dados" (Get Data), a ferramenta abre o Power Query Editor, o ambiente de ETL (Extração, Transformação e Carga) da Microsoft.
+
+- **Tipagem de Dados**: O Power Query tenta adivinhar o tipo de dado automaticamente (passo "Tipo Alterado"). É mandatório revisar se textos estão como ABC, números inteiros como 123 e datas com o ícone de calendário. Tipos errados quebram cálculos futuros.
+- **Performance (Exclusão de Colunas)**: Uma regra de ouro no Power BI é importar apenas o necessário. O professor demonstra a exclusão de colunas textuais densas (como a "Descrição" do chamado), pois elas não serão agregadas em gráficos e consomem muita memória RAM no modelo tabular do Power BI.
+- **Limpeza e Substituição**: Substituir códigos numéricos por textos descritivos (ex: trocar o ID '1' por 'Financeiro') diretamente no Power Query facilita a leitura do usuário final no dashboard.
+- **Referência Oficial (Microsoft Learn)**: Para dominar as transformações, estude a [documentação sobre Formatação e combinação de dados no Power BI Desktop](https://learn.microsoft.com/pt-br/power-bi/connect-data/desktop-shape-and-combine-data).
+
+### Modelagem de Dados: Relacionamentos
+
+No mundo real, os dados raramente residem em uma única tabela plana (flat file). Eles são distribuídos em múltiplas tabelas para otimizar o banco de dados.
+
+- **Tabelas Fato vs. Tabelas Dimensão**: A tabela de chamados, que registra os eventos que acontecem ao longo do tempo, é a Tabela Fato. Uma tabela auxiliar contendo apenas o ID e o Nome dos Atendentes é uma Tabela Dimensão.
+- **Criando Relacionamentos**: Na guia "Modelo" do Power BI, o analista deve conectar as tabelas. O professor demonstra como arrastar o campo de "ID do Atendente" da tabela dimensão para a tabela fato, criando um relacionamento de "1 para Muitos" (1:N).
+- **Impacto**: O relacionamento permite usar o Nome do Atendente como um filtro dinâmico que "corta" os dados da tabela fato, sem precisar mesclar (fazer VLOOKUP/PROCV) os dados na mesma planilha.
+
+```mermaid
+erDiagram
+    DIM_ATENDENTE {
+        int ID_Atendente PK
+        string Nome_Atendente
+        string Equipe
+    }
+    FATO_TICKETS {
+        int ID_Ticket PK
+        date Data_Abertura
+        int ID_Atendente FK
+        string Status
+    }
+
+    DIM_ATENDENTE ||--o{ FATO_TICKETS : filtra
+```
+
+- **Referência Oficial (Microsoft Learn)**: O design ideal para o Power BI é o Star Schema (Esquema em Estrela). Leia sobre [Entender o esquema em estrela e a importância para o Power BI](https://learn.microsoft.com/pt-br/power-bi/guidance/star-schema).
+
+### Construção do Dashboard Analítico (DAX e Visualizações)
+
+A criação do painel exige a transição dos dados brutos para indicadores consolidados e visuais interativos.
+
+#### O Uso de Medidas Explicitas (DAX)
+
+Em vez de simplesmente arrastar colunas numéricas para a tela (cálculo implícito), a melhor prática é criar Medidas utilizando a linguagem DAX (Data Analysis Expressions).
+O professor cria uma medida simples para contar o volume de chamados: Total de Tickets = COUNTROWS(Base). Essa medida é então colocada em um visual de Cartão (Card) para servir como o KPI principal no topo da tela.
+
+#### Design e Interatividade
+
+- **Background Customizado**: O layout não precisa ser construído com dezenas de formas no Power BI. Pode-se criar um design de fundo (background) no PowerPoint ou Figma, exportar como imagem e importá-la como "Segundo plano da tela" no Power BI (ajustando a transparência para 0% e o ajuste da imagem para "Ajuste").
+- **Segmentação de Dados (Slicers)**: A inserção de filtros, como Mês e Ano, afeta dinamicamente todos os gráficos da página. O Power BI, por padrão, faz com que qualquer clique em uma barra de um gráfico filtre interativamente os demais visuais.
+
+### Dicas de Ferramenta Personalizadas (Report Page Tooltips)
+
+O Power BI permite substituir a caixa de texto preta padrão (que aparece ao passar o mouse sobre um gráfico) por um mini-relatório completo e visual.
+
+- **Como configurar**:
+  1. Crie uma nova página e, nas configurações de página, marque "Permitir uso como dica de ferramenta" (Tooltip).
+  2. Ajuste o tamanho da tela para "Dica de Ferramenta".
+  3. Construa um gráfico detalhado nesta mini-página (ex: Volume de tickets quebrado por Atendente).
+  4. Retorne ao painel principal, selecione o gráfico desejado, vá em Formato > Dica de Ferramenta > Tipo: Página de Relatório, e aponte para a página criada.
+- **Vantagem Estratégica**: Isso permite manter o dashboard principal "limpo" e macro, mas entrega o detalhamento micro instantaneamente sob demanda do usuário.
+- **Referência Oficial (Microsoft Learn)**: [Criar dicas de ferramenta com base em páginas de relatório no Power BI Desktop](https://learn.microsoft.com/pt-br/power-bi/create-reports/desktop-tooltips).
+
+### Boas Práticas e Escolha de Gráficos (DataViz)
+
+A unidade encerra com uma reflexão crítica e um guia metodológico sobre a representação ética e eficiente dos dados. O uso inadequado de gráficos pode induzir o usuário de negócios ao erro de interpretação.
+
+#### O Que NÃO Fazer (Erros Comuns)
+
+- **Gráficos 3D**: A perspectiva 3D distorce a percepção de área e volume. Uma fatia de gráfico de pizza que está na frente parecerá maior do que uma fatia do fundo, mesmo se representar um valor menor.
+- **Eixos Truncados**: Omitir o zero do eixo Y em um gráfico de barras pode fazer uma diferença mínima (ex: de 100 para 105) parecer uma mudança drástica e alarmante.
+- **Excesso de Fatias em Gráficos de Pizza**: Se houver mais de 5 categorias, a leitura de proporção em um gráfico circular torna-se impossível. Substitua por um gráfico de barras ordenado.
+
+#### O Guia de Sugestão de Gráficos (Chart Chooser)
+
+Para escolher a visualização correta, o analista deve primeiro responder qual é a intenção da análise. O material de apoio divide as escolhas em quatro grandes categorias:
+
+- **Comparação**: Para comparar valores entre categorias (ex: Vendas por departamento). Use Gráficos de Barras ou Colunas. Se a comparação for ao longo do tempo, use Gráficos de Linha.
+- **Composição**: Para mostrar como o todo é dividido em partes (ex: Market share). Para dados estáticos, use Gráfico de Pizza (poucas fatias) ou Cascata (Waterfall). Para composição temporal, use Áreas Empilhadas.
+- **Distribuição**: Para entender como as frequências de um conjunto de dados se espalham (ex: Faixa etária de clientes). Use Histogramas (para 1 variável) ou Gráficos de Dispersão (para 2 variáveis).
+- **Relacionamento**: Para mostrar se há correlação entre variáveis (ex: Desconto afeta o lucro?). Use o Gráfico de Dispersão (Scatter Plot) ou o Gráfico de Bolhas (se houver uma terceira métrica de tamanho).
+
+---
+
+---
+
 [Previous](./02-data-driven-data-discovery.md)
 [Next](./04-data-analysis-practice.md)
