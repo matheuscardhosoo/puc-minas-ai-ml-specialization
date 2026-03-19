@@ -282,17 +282,22 @@ O Power BI permite substituir a caixa de texto preta padrão (que aparece ao pas
 - **Vantagem Estratégica**: Isso permite manter o dashboard principal "limpo" e macro, mas entrega o detalhamento micro instantaneamente sob demanda do usuário.
 - **Referência Oficial (Microsoft Learn)**: [Criar dicas de ferramenta com base em páginas de relatório no Power BI Desktop](https://learn.microsoft.com/pt-br/power-bi/create-reports/desktop-tooltips).
 
-### Boas Práticas e Escolha de Gráficos (DataViz)
+---
 
-A unidade encerra com uma reflexão crítica e um guia metodológico sobre a representação ética e eficiente dos dados. O uso inadequado de gráficos pode induzir o usuário de negócios ao erro de interpretação.
+## Gráficos
 
-#### O Que NÃO Fazer (Erros Comuns)
+### Cuidados na Utilização de Gráficos (Armadilhas Visuais)
 
-- **Gráficos 3D**: A perspectiva 3D distorce a percepção de área e volume. Uma fatia de gráfico de pizza que está na frente parecerá maior do que uma fatia do fundo, mesmo se representar um valor menor.
-- **Eixos Truncados**: Omitir o zero do eixo Y em um gráfico de barras pode fazer uma diferença mínima (ex: de 100 para 105) parecer uma mudança drástica e alarmante.
-- **Excesso de Fatias em Gráficos de Pizza**: Se houver mais de 5 categorias, a leitura de proporção em um gráfico circular torna-se impossível. Substitua por um gráfico de barras ordenado.
+Apesar de ferramentas como o Power BI e o Tableau facilitarem a criação de painéis, elas não impedem o analista de cometer erros lógicos ou de design. A responsabilidade pela precisão e honestidade da visualização é inteiramente do desenvolvedor.
 
-#### O Guia de Sugestão de Gráficos (Chart Chooser)
+O professor destaca exemplos clássicos de como a má escolha visual pode distorcer a realidade e enganar o público (intencionalmente ou não):
+
+- **O Perigo dos Gráficos 3D**: A perspectiva tridimensional altera a percepção humana de volume e área. Em um exemplo famoso de uma apresentação corporativa, uma fatia de 19,5% posicionada na frente do gráfico em 3D parecia visualmente maior do que a fatia de 21,2% posicionada na parte de trás. A recomendação é clara: evite gráficos 3D em painéis analíticos.
+- **Eixos Truncados (Não iniciar no Zero)**: Alterar a escala do eixo Y para que não comece em zero é uma técnica que magnifica pequenas diferenças. O professor cita um gráfico de barras exibido em um canal de notícias onde a diferença entre 35% e 39,6% parecia gigantesca porque o eixo inferior foi cortado.
+- **Excesso de Cores e Categorias**: Gráficos de pizza com muitas fatias tornam a comparação de ângulos impossível para o cérebro humano. Nesses casos, o gráfico de barras ordenado é sempre a melhor escolha.
+- **Prática Recomendada (Tableau)**: Limite os gráficos de pizza. O cérebro humano processa comprimento e posição com muito mais precisão do que ângulos. Se precisar usar pizza, restrinja a poucas fatias e use para demonstrar relações de "parte do todo" simples.
+
+### O Guia de Sugestão de Gráficos (Chart Chooser)
 
 Para escolher a visualização correta, o analista deve primeiro responder qual é a intenção da análise. O material de apoio divide as escolhas em quatro grandes categorias:
 
@@ -301,7 +306,46 @@ Para escolher a visualização correta, o analista deve primeiro responder qual 
 - **Distribuição**: Para entender como as frequências de um conjunto de dados se espalham (ex: Faixa etária de clientes). Use Histogramas (para 1 variável) ou Gráficos de Dispersão (para 2 variáveis).
 - **Relacionamento**: Para mostrar se há correlação entre variáveis (ex: Desconto afeta o lucro?). Use o Gráfico de Dispersão (Scatter Plot) ou o Gráfico de Bolhas (se houver uma terceira métrica de tamanho).
 
----
+### Data Storytelling (Contando Histórias com Dados)
+
+Apresentar um dashboard repleto de números não é suficiente; o analista precisa guiar o público através de uma narrativa. O Data Storytelling é a interseção entre dados, elementos visuais e uma narrativa clara para comunicar insights complexos e promover a tomada de decisão.
+
+#### Contexto e Audiência
+
+A narrativa de dados começa pelo entendimento profundo de quem é o público-alvo e qual é o contexto do negócio. Grandes empresas de tecnologia como Amazon e Netflix baseiam a criação de seus produtos (como a série House of Cards) puramente na análise do perfil e comportamento do usuário, entregando exatamente a narrativa que a audiência deseja consumir.
+
+#### Exemplos Históricos de Visualização Narrativa
+
+Para ilustrar o poder do Storytelling antes mesmo da existência dos computadores, o material cita dois marcos da visualização de dados:
+
+1. **O Mapa de Charles Minard (Campanha de Napoleão)**: Um gráfico bidimensional que conseguiu unir seis variáveis distintas (tamanho do exército, latitude, longitude, direção, temperatura e datas) para contar a trágica história da invasão da Rússia por Napoleão.
+2. **O Gráfico de Florence Nightingale**: Utilizou um gráfico de área polar (conhecido como coxcomb) para provar ao parlamento britânico que a maioria dos soldados morria de doenças infecciosas em hospitais mal higienizados, e não de ferimentos em batalha. O impacto dessa narrativa visual mudou as práticas médicas militares para sempre.
+
+#### Regras de Ouro do Storytelling Visual
+
+- **Remova a Desordem (Clutter)**: Menos é mais. Remova linhas de grade desnecessárias, bordas e legendas redundantes. Foque no que importa para a história.
+- **Atributos Pré-Atentivos**: O cérebro processa certas informações antes mesmo de prestarmos atenção consciente. Utilize cor, tamanho e orientação de forma estratégica para destacar instantaneamente o ponto crítico da sua história (ex: destacar em vermelho apenas a barra que representa prejuízo).
+- **Fluxo de Leitura**: O olhar humano ocidental lê da esquerda para a direita, de cima para baixo. Coloque as conclusões mais importantes ou KPIs no canto superior esquerdo do painel.
+
+```mermaid
+graph TD
+    A[Dados] -->|Fornecem a Base| D((Insight Estratégico))
+    B[Visuais] -->|Facilitam a Compreensão| D
+    C[Narrativa] -->|Dá o Contexto e a Ação| D
+
+    style D fill:#d4edda,stroke:#333,stroke-width:2px
+```
+
+### Extensibilidade no Power BI: Integração com Python e R
+
+Embora o Power BI e o Tableau possuam vastos catálogos de gráficos nativos, a Ciência de Dados frequentemente exige análises estatísticas complexas ou transformações que fogem do escopo visual padrão. A Microsoft resolve isso permitindo a execução nativa de scripts Python e R dentro do Power BI Desktop.
+
+#### Casos de Uso para R e Python no Power BI
+
+- **Extração e Preparação Avançada (Power Query)**: Você pode usar scripts R ou bibliotecas do Python (como o Pandas) diretamente na etapa de "Obter Dados" para limpar, preencher valores nulos (imputação estatística) ou estruturar dados de forma que a interface gráfica nativa não suporta.
+- **Visualizações Customizadas**: Se o Power BI não tem um gráfico de densidade avançado ou um mapa de calor estatístico que você precisa, é possível criar um componente visual que executa código R (ex: biblioteca ggplot2) ou Python (ex: matplotlib, seaborn) diretamente no canvas do relatório.
+- **Integração de Machine Learning**: Permite rodar modelos preditivos de bibliotecas como o Scikit-learn (Python) sobre a base de dados importada, gerando uma nova coluna com a previsão (ex: probabilidade de Churn) que será posteriormente exibida nos dashboards nativos.
+- **Nota de Configuração**: Para utilizar estes recursos, as linguagens Python e R devem estar instaladas localmente na máquina do desenvolvedor, e os diretórios de instalação devem ser mapeados nas opções globais do Power BI Desktop.
 
 ---
 
