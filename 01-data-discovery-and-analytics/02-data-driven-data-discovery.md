@@ -1,4 +1,4 @@
-# Unidade II – Data-Driven e Data Discovery
+# Unidade II: Data-Driven e Data Discovery
 
 ## 1. Cultura Data-Driven: Panorama Geral
 

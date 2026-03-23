@@ -6,9 +6,9 @@ Repositório dedicado à documentação técnica, notas de estudo e projetos pr�
 
 | #   | Disciplina                   | Data de Início | Status          |
 | --- | ---------------------------- | -------------- | --------------- |
-| 01  | Data Discovery e Analytics   | 12/01/2026     | 🟢 Em Andamento |
-| 02  | Estatística Geral            | 02/02/2026     | 🟡 Não iniciada |
-| 03  | Python para Ciência de Dados | 02/03/2026     | 📅 Planejado    |
+| 01  | Data Discovery e Analytics   | 12/01/2026     | 🟢 Concluído    |
+| 02  | Estatística Geral            | 02/02/2026     | 🟢 Iniciada     |
+| 03  | Python para Ciência de Dados | 02/03/2026     | 🟡 Não iniciada |
 | ... | ...                          | ...            | ...             |
 
 ## 🛠️ Stack Tecnológica (Previsão)
@@ -25,3 +25,4 @@ _Notas mantidas em Português para agilidade no aprendizado._
 ---
 
 [Next](./01-data-discovery-and-analytics/summary.md)
+[Next](./02-general-statistics-theory-and-applications/summary.md)

@@ -1,4 +1,4 @@
-# Unidade I - Introdução, OLAP e ferramentas
+# Unidade I: Introdução, OLAP e ferramentas
 
 ## 1. KPI
 

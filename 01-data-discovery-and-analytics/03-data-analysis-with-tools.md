@@ -1,4 +1,4 @@
-# Unidade III – Análise de Dados com ferramenta
+# Unidade III: Análise de Dados com ferramenta
 
 ## Público-Alvo
 
@@ -428,4 +428,4 @@ Esta abordagem exemplifica o conceito de Transfer Learning (Aprendizado por Tran
 ---
 
 [Previous](./02-data-driven-data-discovery.md)
-[Next](./04-data-analysis-practice.md)
+[Next](./summary.md)
