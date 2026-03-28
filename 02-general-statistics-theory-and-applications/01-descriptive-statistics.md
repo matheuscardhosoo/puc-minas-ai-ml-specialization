@@ -24,6 +24,8 @@ graph LR
 - **Estudo Observacional**: As características de uma população são levantadas sem manipulação, como em pesquisas eleitorais ou de mercado.
 - **Estudo Experimental**: Grupos são manipulados para avaliar o efeito de diferentes tratamentos, como testes de novos medicamentos ou rendimento de processos químicos.
 
+---
+
 ## 2. População, Amostra e Medidas
 
 O sucesso de um estudo estatístico depende da definição clara do alvo de interesse e de como os dados serão extraídos.
@@ -40,6 +42,8 @@ A distinção entre esses termos reside na origem do dado:
 - **Parâmetro**: Medida numérica que descreve uma característica de toda a população.
 - **Estatística**: Medida numérica que descreve uma característica de uma amostra.
 
+---
+
 ## 3. Classificação de Variáveis (Tipos de Dados)
 
 Os dados (ou variáveis) são classificados conforme sua natureza, o que determina o tipo de análise estatística aplicável.
@@ -50,6 +54,8 @@ Os dados (ou variáveis) são classificados conforme sua natureza, o que determi
 |                            | Ordinal    | Categorias que seguem uma ordenação ou hierarquia.    | Nível de satisfação, escolaridade.    |
 | Quantitativos (Numéricos)  | Discreto   | Resultam de contagens; geralmente números inteiros.   | Número de alunos, ligações recebidas. |
 |                            | Contínuo   | Resultam de medições; podem assumir valores decimais. | Peso, temperatura, altura.            |
+
+---
 
 ## 4. Áreas da Estatística
 
@@ -62,5 +68,103 @@ A disciplina divide-se em quatro grandes frentes:
 
 ---
 
+## 5. Medidas de Tendência Central
+
+As medidas de tendência central resumem uma distribuição de dados por meio de um único valor representativo, indicando o centro de massa da amostra.
+
+- **Média Aritmética:** Obtida pela soma dos valores dividida pelo tamanho da amostra ($n$). A média populacional é representada pelo parâmetro grego $\mu$, enquanto a amostral é a estatística $\bar{x}$ . Ela é altamente sensível a valores discrepantes (_outliers_), pois cada ponto tem peso no cálculo final.
+- **Mediana:** É o valor que divide a amostra ordenada estritamente ao meio. Do mínimo até a mediana, concentram-se 50% dos dados, restando 50% até o valor máximo. Ao contrário da média, a mediana não é severamente distorcida por _outliers_.
+- **Moda:** Consiste no valor de maior frequência em um conjunto de observações. Possui uma característica exclusiva: é a única medida de tendência central aplicável a variáveis qualitativas e categóricas (como o meio de transporte mais utilizado).
+
+### Estudo de Caso: Ruído em Cruzamento Urbano
+
+Um pesquisador mediu o ruído em decibéis durante 18 dias.
+
+- A média foi de 108,44 dB e a mediana foi calculada a partir das posições centrais, resultando em 108,5 dB.
+- **Análise:** A proximidade estreita entre a média e a mediana sugere uma distribuição simétrica, indicando ausência de valores extremos anômalos, o que valida a média como um excelente representante da amostra.
+
+### Insights / Conexão com IA/ML
+
+- **Robustez de Loss Functions:** No treinamento de redes neurais ou modelos de regressão, a intuição por trás da Média e Mediana orienta a escolha da função de custo. Otimizar o Erro Médio Absoluto (MAE) puxa as predições para a Mediana (mais robusto), enquanto otimizar o Erro Quadrático Médio (MSE) puxa para a Média, sendo mais penalizado por anomalias.
+- **Feature Engineering:** Em pipelines puramente _Data-Driven_, a imputação de dados faltantes numéricos (NaN) por meio da Mediana é mandatória quando a variável possui uma distribuição assimétrica, evitando que o modelo herde o viés de _outliers_.
+
+---
+
+## 6. Medidas de Dispersão
+
+Duas amostras podem apresentar médias idênticas, porém com comportamentos internos radicalmente distintos. As medidas de dispersão capturam a variabilidade espacial dos dados em relação ao seu centro.
+
+- **Amplitude:** A distância direta entre o valor máximo e mínimo da amostra. É uma medida frágil, pois ignora completamente o comportamento dos dados intermediários.
+- **Variância ($s^2$ para amostra, $\sigma^2$ para população):** Representa a média dos desvios quadráticos de cada ponto em relação à média do grupo. Seu cálculo resulta em uma medida na mesma unidade original elevada ao quadrado (ex: metros quadrados, minutos quadrados), dificultando interpretações diretas.
+  $$s^2=\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}$$
+- **Desvio Padrão ($s$ ou $\sigma$):** É a raiz quadrada da variância. Ele reverte o valor para a unidade de medida primária da observação, sendo largamente empregado na elaboração de relatórios descritivos.
+- **Coeficiente de Variação (CV):** Medida de dispersão relativa expressa de forma percentual. É utilizado estritamente para contornar problemas de escalas diferentes, ou quando as médias das amostras a serem comparadas diferem significativamente.
+  $$CV=\left(\frac{s}{\bar{x}}\right)\cdot 100$$
+
+### Estudo de Caso: Tempos de Deslocamento e Turmas Universitárias
+
+- **Deslocamento:** O tempo médio gasto para chegar a uma empresa foi de 30,4 minutos. Aplicando a fórmula do desvio padrão obteve-se aproximadamente 25,05 minutos. A alta proximidade do desvio padrão em relação à média atesta uma variabilidade severa.
+- **Variabilidade Intergrupos:** Ao analisar turmas com médias desiguais (ex: Médias 3, 8 e 5), analisar puramente o desvio padrão resultaria em equívocos analíticos. O Coeficiente de Variação permitiu padronizar a métrica para definir precisamente qual turma foi mais homogênea.
+
+### Insights / Conexão com IA/ML
+
+- **Gradient Descent e Inicialização:** Funções de ativação modernas (ReLU, GELU) e técnicas de inicialização de pesos (como _He_ ou _Xavier_) baseiam-se em cálculos precisos de variância para evitar que gradientes desapareçam ou explodam durante a retropropagação em Deep Learning.
+- **PCA (Principal Component Analysis):** Algoritmo clássico de aprendizado não supervisionado focado exclusivamente em dispersão. O PCA encontra novos eixos vetoriais que capturam a maior _variância_ possível nos dados de alta dimensionalidade.
+
+---
+
+## 7. Medidas de Posição Relativa e Escore Z
+
+Avançando além de medidas que resumem o conjunto completo, é necessário isolar elementos em nichos específicos por meio de recortes quantitativos.
+
+- **Quartis, Decis e Percentis:** Estas métricas seccionam uma amostra ordenada, correspondendo respectivamente a fatias de 25%, 10% e 1% do banco de dados. Devido à proporcionalidade, o 3º Quartil ($Q_3$) é o equivalente exato do Percentil 75 ($P_{75}$).
+- **Cálculo Posicional:** A extração começa com o cálculo da Posição ($L$).
+  $$L=\left(\frac{k}{100}\right)n$$
+  - Se $L$ for inteiro: A estatística é a média entre as observações nos índices $L$ e $L+1$.
+  - Se $L$ for decimal: O valor é matematicamente arredondado para o próximo inteiro.
+- **Escore Padronizado (Escore Z):** Mensura a distância espacial exata que um valor tem de sua média em unidades de desvio padrão ($s$).
+  $$z=\frac{x-\bar{x}}{s}$$
+  - Valores de $z$ negativos residem abaixo da média; positivos indicam elementos acima do bloco central.
+
+### Estudo de Caso: Velocidade de Compras em E-commerce
+
+Para uma amostra de 12 consumidores analisados durante finalização de compra:
+
+- **Cálculo do $3^\circ$ Quartil ($k=75$):** $L = 9$. Sendo inteiro, operou-se a média entre o 9º elemento (77s) e o 10º elemento (79s), concluindo que 75% dos consumidores gastam, no limite superior, 78 segundos na transação.
+- **Cálculo de Escore Z:** Para o tempo mais lento computado (83s) com média aproximada de 76,08s e $s = 13,52s$, foi obtido um escore positivo de $1,9605$. O cliente atípico demorou quase duas unidades padronizadas inteiras além da norma da loja.
+
+### Insights / Conexão com IA/ML
+
+- **Feature Scaling (_Standardization_):** A transformação do Escore Z sustenta a classe `StandardScaler` amplamente utilizada em Python/Scikit-Learn. Ela neutraliza vieses onde _features_ de escalas largas numéricas (ex: renda em milhares) anulam a influência matemática de _features_ menores (ex: número de filhos) num algoritmo K-Means.
+- **Detecção Preditiva de Anomalias:** O mapeamento em Escore Z é fundamental para o bloqueio automatizado. Transações financeiras que atinjam escores limiares (frequentemente com $|z| > 3$) podem acionar agentes autônomos de segurança para suspender a movimentação financeira preventivamente.
+
+---
+
+## 8. Diagrama de Seleção Descritiva
+
+O processo de exploração e documentação _Data-Driven_ de variáveis contínuas segue uma árvore de decisão para definir a técnica estatística correta:
+
+```mermaid
+graph TD
+    A[Conjunto de Dados Ordenado] --> B{Análise Requerida?}
+    B -- Centralidade --> C{Existem Outliers Severos?}
+    B -- Variabilidade --> D{Comparar Unidades Diferentes?}
+    B -- Posição de Valor Isolado --> E[Escore Padronizado Z]
+
+    C -- Sim --> F[Utilizar Mediana]
+    C -- Não --> G[Utilizar Média Aritmética]
+
+    D -- Sim --> H[Coeficiente de Variação - CV]
+    D -- Não --> I[Desvio Padrão]
+
+    F --> J[Cálculo de Decis e Percentis]
+```
+
+---
+
 [Previous](./summary.md)
 [Next](./02-probability.md)
+
+```
+
+```
