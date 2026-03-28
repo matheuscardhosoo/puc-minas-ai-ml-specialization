@@ -243,9 +243,81 @@ graph TD
 
 ---
 
+## 12. Distribuição de Frequências (Tabelas Simples e Estendidas)
+
+Uma distribuição de frequências é uma estrutura tabular que organiza categorias ou valores quantitativos de acordo com o número de ocorrências observadas na amostra.
+
+- **Tabela de Frequência Simples:** Geralmente composta por três colunas principais: a variável de estudo, a frequência absoluta (contagem) e a frequência relativa (percentual). É o formato ideal para resumir variáveis qualitativas, pois fornece uma leitura limpa e direta.
+- **Tabela de Frequência Estendida:** Adiciona duas colunas vitais: Frequência Acumulada e Percentual Acumulado. A acumulação representa a soma progressiva das frequências das categorias anteriores com a categoria atual.
+  - É fortemente recomendada para variáveis quantitativas ou qualitativas ordinais (onde a ordem importa, como grau de escolaridade).
+
+### Estudo de Caso: Inspeção de Escadas na Produção
+
+Ao avaliar a quantidade de defeitos em 48 escadas no final de uma linha de montagem, a utilização de uma tabela estendida permitiu observar não apenas quantos defeitos isolados existiam, mas o comportamento cumulativo. A leitura do percentual acumulado demonstrou rapidamente que 58,4% das escadas possuíam de 0 a 1 defeito.
+
+### Insights / Conexão com IA/ML
+
+- **Análise de Desbalanceamento (Class Imbalance):** Na preparação de dados para classificação (ex: prever se um paciente tem ou não uma doença), a tabela de frequência simples é a primeira ferramenta para identificar classes minoritárias.
+- **Funções de Distribuição Acumulada (CDF):** A frequência acumulada é a base empírica para funções matemáticas usadas na engenharia de _features_. Em algoritmos de recomendação, definir um _threshold_ de corte (ex: "manter apenas os usuários que representam 90% das interações") depende inteiramente da leitura de percentuais acumulados.
+
+---
+
+## 13. Distribuição de Frequências por Intervalos (Regra de Sturges)
+
+Quando a variável é quantitativa contínua, ou quando a amostra é grande e os valores raramente se repetem, listar cada valor em uma linha criaria uma tabela longa e ineficiente, derrotando o propósito da sumarização. A solução é agrupar os dados em intervalos de classes.
+
+A **Regra de Sturges** é um método matemático padronizado para definir a quantidade ideal de intervalos para qualquer tamanho de amostra.
+
+```mermaid
+graph TD
+    A[Conjunto de Dados Numéricos] --> B[Calcular Amplitude Total]
+    B --> C["A = Máx - Mín"]
+    C --> D[Calcular Número de Classes k]
+    D --> E["k = 1 + 3,322 * log(n)"]
+    E --> F[Calcular Amplitude do Intervalo]
+    F --> G["Ak = A / k"]
+    G --> H[Construir Tabela]
+```
+
+- **Simbologia de Inclusão**: Na estatística, o símbolo $\vdash$ é utilizado para definir os limites do intervalo. O valor à esquerda (junto ao traço vertical) pertence ao intervalo (fechado), enquanto o valor à direita não pertence (aberto). Um intervalo $4,7 \vdash 6,5$ inclui o $4,7$, mas exclui o $6,5$.
+
+### Estudo de Caso: Tempo de Montagem
+
+Em uma amostra de 50 tempos de montagem (variando de 4,7 a 15,2 segundos), aplicar a regra de Sturges resultou em:
+
+- $A = 10,5$.
+- $k \approx 6,644$, optando-se por 6 classes.
+- $A_k = 1,75$. Para manter a precisão decimal da amostra, a amplitude foi ajustada para $1,8$.
+
+A tabela gerada permitiu afirmar que 86% dos equipamentos foram montados em um tempo inferior a 8,3 segundos.
+
+### Insights / Conexão com IA/ML
+
+- **Binning / Discretização**: Em Machine Learning, transformar uma variável contínua (ex: idade) em intervalos categóricos (ex: 18-25, 26-35) é uma técnica chamada Binning. Isso ajuda a lidar com outliers e permite que modelos lineares capturem padrões não lineares. A Regra de Sturges pode ser a lógica por trás do hiperparâmetro de corte em algoritmos de pré-processamento, como o KBinsDiscretizer da biblioteca Scikit-Learn.
+
+---
+
+## 14. Tabelas de Contingência (Tabelas Cruzadas)
+
+As tabelas de contingência demonstram a distribuição de frequência conjunta de duas ou mais variáveis simultaneamente. Elas revelam informações de cruzamento de dados que ficariam ocultas em tabelas isoladas.
+
+Ao analisar essas tabelas, a extração de insights depende da direção em que o percentual (100%) é calculado:
+
+- **Percentual da Linha**: Divide-se a frequência da célula pelo total da linha correspondente. O somatório de 100% fica no final de cada linha.
+- **Percentual da Coluna**: Divide-se a frequência da célula pelo total da coluna correspondente. O somatório de 100% fica no final de cada coluna.
+- **Percentual do Total**: Divide-se a frequência pelo total geral absoluto da amostra. Apenas o canto inferior direito soma 100%.
+
+### Estudo de Caso: Controle de Qualidade em Pneus
+
+Ao avaliar 152 defeitos em veículos utilitários, cruzou-se a variável "Lado" (Direito/Esquerdo) com a variável "Posição" (Dianteira/Traseira).
+A tabela de contingência revelou cruzamentos exatos: 32 defeitos ocorreram especificamente na posição dianteira direita. Ao converter para percentual de coluna, verificou-se que, dos defeitos traseiros, 67% concentravam-se no lado esquerdo, permitindo uma intervenção técnica focada.
+
+### Insights / Conexão com IA/ML
+
+- **Matriz de Confusão (Confusion Matrix)**: O principal método para avaliar a performance de um algoritmo de classificação de Inteligência Artificial é, em sua essência, uma Tabela de Contingência. Ela cruza a "Classe Real" com a "Classe Prevista".
+- **Métricas de Performance**: As métricas de IA derivam diretamente da direção dos totais. A Precisão (Precision) de um modelo é um cálculo de Percentual de Coluna (quantos acertos dentre as predições feitas), enquanto o Recall (Sensibilidade) é um cálculo de Percentual de Linha (quantos acertos dentre os casos que realmente existiam na base).
+
+---
+
 [Previous](./summary.md)
 [Next](./02-probability.md)
-
-```
-
-```
