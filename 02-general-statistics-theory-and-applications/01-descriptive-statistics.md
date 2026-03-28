@@ -162,6 +162,87 @@ graph TD
 
 ---
 
+## 9. Gráficos para Variáveis Qualitativas e Quantitativas Discretas
+
+A escolha do gráfico depende inteiramente da natureza da variável que está sendo analisada.
+
+- **Gráfico de Setores (Pizza ou Rosca):** \* É exclusivo para representar a distribuição de frequências de variáveis qualitativas.
+  - Deve ser utilizado apenas quando o número de categorias de resposta é pequeno (geralmente duas a três), pois o excesso de fatias compromete a leitura.
+  - Regra de Ouro: Nunca utilize efeitos em 3D, pois eles distorcem a percepção visual das categorias, mascarando proporções matemáticas reais.
+
+- **Gráfico de Barras ou Colunas:**
+  - Utiliza o plano cartesiano, sendo altamente recomendado para variáveis qualitativas (inclusive ordinais) e quantitativas discretas (contagens).
+  - Para não distorcer a análise, o eixo que contém as frequências ou valores deve obrigatoriamente iniciar no valor zero. Alterar o início da escala cria um "efeito de lupa" que amplia diferenças que podem ser insignificantes.
+  - A inclusão dos valores exatos (frequência ou percentual) acima das barras facilita a leitura direta sem sobrecarregar o visual.
+
+- **Gráfico de Colunas Agrupadas ou Empilhadas:**
+  - É a ferramenta ideal quando os dados provêm de tabelas de contingência (cruzamento de duas variáveis).
+  - Permite comparar proporções, como o volume de vendas de diferentes produtos em múltiplas filiais de uma empresa.
+  - O uso do formato empilhado em percentuais (onde cada coluna soma 100%) é excelente para comparar o comportamento interno de grupos distintos, neutralizando a diferença de volume absoluto entre eles.
+
+### Estudos de Caso: Seleção de Fornecedores e Distorção Visual
+
+Em uma análise de _Market Share_ entre quatro fornecedores (A, B, C e D), a apresentação inicial utilizou um gráfico de setores em 3D. O efeito tridimensional fez com que uma fatia de 31% parecesse visualmente maior do que a fatia de 34% que estava posicionada no fundo do gráfico. A remoção do 3D corrigiu a distorção perceptiva, validando a premissa de que análises _Data-Driven_ exigem representações bidimensionais limpas.
+
+## 10. Gráficos para Variáveis Quantitativas Contínuas e Séries Temporais
+
+Para variáveis numéricas contínuas ou análises de comportamento ao longo do tempo, as ferramentas mudam de foco para capturar distribuições, correlações e tendências.
+
+- **Histograma:**
+  - É a forma padrão para apresentar distribuições de frequências de variáveis quantitativas contínuas agrupadas em intervalos de classes.
+  - As barras são desenhadas de forma contígua (sem espaços), onde o eixo X representa os limites dos intervalos de valores e o eixo Y representa a frequência.
+
+- **Gráfico de Linhas:**
+  - Essencial para representar séries temporais (dados observados periodicamente: dias, meses, anos).
+  - Permite identificar dois padrões fundamentais na linha do tempo:
+    1. **Tendência:** Comportamento geral de crescimento ou decrescimento de longo prazo.
+    2. **Sazonalidade:** Sucessão regular e repetitiva de picos e vales em intervalos de tempo fixos (ex: aumentos recorrentes nas vendas durante feriados).
+
+- **Gráfico de Pontos (Dotplot):**
+  - Recomendado para amostras pequenas, mostrando cada ocorrência como um ponto sobre uma reta numérica.
+  - Facilita a visualização da dispersão dos dados e a aderência a limites de especificação técnica em linhas de produção.
+
+- **Diagrama em Caixa (Boxplot):**
+  - Gráfico focado na exibição simultânea da tendência central (mediana), dispersão (distância interquartílica) e assimetria.
+  - É construído com base em cinco medidas principais: valor mínimo, 1º quartil ($Q_1$), mediana ($Q_2$), 3º quartil ($Q_3$) e valor máximo.
+  - Possui um sistema matemático nativo para a detecção de _Outliers_ (valores discrepantes), utilizando as fórmulas:
+    - Limite Inferior: $Q_1 - 1,5 \times DIQ$
+    - Limite Superior: $Q_3 + 1,5 \times DIQ$
+
+- **Diagrama de Dispersão (Scatter Plot):**
+  - Avalia a possível correlação entre duas variáveis quantitativas distintas medidas nos mesmos indivíduos.
+  - Busca responder a características essenciais: a correlação existe? É linear, exponencial ou quadrática? É positiva (crescente) ou negativa (decrescente)?
+  - A ausência de qualquer padrão observável (gráfico de "nuvem de pontos" totalmente aleatória) indica falta de correlação entre as métricas analisadas.
+
+### Estudos de Caso: Qualidade na Produção e Tráfego Aéreo
+
+- **Produção de Azulejos:** Clientes de uma indústria reclamaram da quebra e falta de uniformidade em azulejos. O gráfico de pontos (Dotplot) revelou que a Turma A estava fabricando peças sistematicamente abaixo do limite de especificação (muito finas), enquanto a Turma B fabricava peças acima do limite (espessas), justificando a falha técnica.
+- **Aviação Comercial:** Um gráfico de linhas capturando 150 meses de transporte de passageiros revelou não apenas uma tendência macro de crescimento orgânico, mas uma sazonalidade severa com "vales e picos". Identificou-se que as altas coincidiam rigorosamente com o calendário de férias escolares (Julho e Dezembro/Janeiro).
+
+## 11. Diagrama de Decisão Visual
+
+```mermaid
+graph TD
+    A[Tipo de Dado] --> B{Qual a natureza da variável?}
+    B -- Qualitativa / Categórica --> C{Número de Categorias?}
+    C -- Duas a Três --> D[Gráfico de Setores]
+    C -- Múltiplas --> E[Gráfico de Barras/Colunas]
+
+    B -- Quantitativa --> F{Objetivo da Análise?}
+    F -- Séries Temporais --> G[Gráfico de Linhas]
+    F -- Distribuição Contínua --> H[Histograma]
+    F -- Comparar Grupos / Achar Outliers --> I[Boxplot]
+    F -- Correlação entre 2 variáveis --> J[Diagrama de Dispersão]
+```
+
+### Insights / Conexão com IA/ML
+
+- **Análise Exploratória de Dados (EDA)**: A construção de Histogramas e Boxplots é a primeira etapa na rotina de um Cientista de Dados antes de treinar qualquer modelo de Machine Learning. O Boxplot dita diretamente quais linhas do dataset serão removidas ou transformadas caso o algoritmo seja sensível a outliers (como Regressão Linear ou Regressão Logística).
+- **Modelagem de Séries Temporais**: A identificação visual de "Tendência" e "Sazonalidade" no gráfico de linhas justifica o uso de arquiteturas de IA preditiva específicas, como redes neurais LSTM (Long Short-Term Memory) ou modelos estatísticos ARIMA, que requerem que a sazonalidade seja tratada (diferenciada) antes do treinamento do algoritmo para previsões futuras sólidas.
+- **Matriz de Correlação e Seleção de Features**: O conceito por trás do Diagrama de Dispersão embasa o cálculo do coeficiente de correlação de Pearson no treinamento algorítmico. Variáveis preditoras (eixo X) com correlação perfeitamente linear e alta variância (muito dispersas) em relação ao alvo (eixo Y) são os melhores atributos para treinar um modelo de Regressão. Correlações do tipo "nuvem" forçam o abandono da feature para evitar ruído (overfitting).
+
+---
+
 [Previous](./summary.md)
 [Next](./02-probability.md)
 
