@@ -319,5 +319,4 @@ A tabela de contingência revelou cruzamentos exatos: 32 defeitos ocorreram espe
 
 ---
 
-[Previous](./summary.md)
-[Next](./02-probability.md)
+[Previous](./summary.md) | [Next](./02-probability.md)
