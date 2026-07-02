@@ -192,4 +192,108 @@ Resolução Estruturada:
 
 ---
 
+## Inferência Estatística e Estimação de Parâmetros
+
+### 1. Visão Geral: Inferência Estatística
+
+A estimação é um dos pilares da estatística inferencial, consistindo no uso de dados de uma amostra para estimar os valores de parâmetros de uma população inteira (que, em geral, são desconhecidos). Essencialmente, quase qualquer característica de uma população pode ser estimada através de uma amostragem aleatória bem estruturada.
+
+- Principais Estimadores:
+  - Média amostral ($\overline{x}$) atua como estimador da média populacional ($\mu$).
+  - Desvio padrão amostral ($s$) atua como estimador do desvio padrão populacional ($\sigma$).
+  - Proporção amostral ($\hat{p}$) atua como estimador da proporção populacional ($p$).
+
+### 2. Tipos de Estimativas
+
+- Estimativa Pontual: Ocorre quando a estatística calculada na amostra fornece um único valor para o parâmetro populacional alvo. Trata-se da 'melhor aposta' individual com os dados em mãos.
+  - Cálculo da Média: $\overline{x} = \frac{\sum_{i=1}^{n}x_{i}}{n}$
+  - Cálculo do Desvio Padrão: $s = \sqrt{\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})^{2}}{n-1}}$
+
+- Estimativa Intervalar (Intervalo de Confiança - IC): Como a estimativa pontual raramente acerta o valor exato, constrói-se um intervalo de valores possíveis no qual se admite, sob uma probabilidade definida, que o parâmetro real esteja contido.
+  - Estrutura geral: $\text{Estimador} \pm E$, onde $E$ é a Margem de Erro.
+
+### 3. Nível de Confiança e Margem de Erro
+
+- Margem de Erro ($E$): Representa a diferença máxima provável entre a média (ou proporção) observada na amostra e o verdadeiro parâmetro na população real. Também é conhecida como erro máximo da estimativa.
+- Grau de Confiança ($1 - \alpha$): É a medida estatística de certeza de que o nosso intervalo cobrirá o parâmetro populacional. No mercado e na academia, o nível de 95% é o padrão (com $\alpha = 0,05$), por oferecer um ótimo equilíbrio entre precisão do intervalo e confiabilidade.
+- Interpretação: Dizer que temos 95% de confiança não significa que 'há 95% de chance de o parâmetro estar no intervalo que calculamos', mas sim que se coletarmos infinitas amostras diferentes e criarmos intervalos para todas elas, 95% destes intervalos englobarão o verdadeiro valor populacional.
+
+### 4. Dimensionamento do Tamanho Amostral ($n$)
+
+Para projetar um estudo, é vital determinar quantas observações são necessárias. Esse cálculo varia de acordo com o que se deseja estimar (média ou proporção) e o tamanho da população base.
+
+- Tamanho da Amostra para Estimar a Média ($\mu$):
+  - Para População Infinita: $n = \left(\frac{Z \cdot \sigma}{E}\right)^{2}$
+  - Para População Finita: $n = \frac{N \cdot \sigma^{2} \cdot Z^{2}}{(N-1) \cdot E^{2} + \sigma^{2} \cdot Z^{2}}$
+
+- Tamanho da Amostra para Estimar a Proporção ($p$):
+  - Para População Infinita: $n = \frac{Z^{2} \cdot \hat{p} \cdot (1-\hat{p})}{E^{2}}$
+  - Para População Finita: $n = \frac{N \cdot \hat{p}(1-\hat{p}) \cdot Z^{2}}{\hat{p}(1-\hat{p}) \cdot Z^{2} + (N-1) \cdot E^{2}}$
+
+### 5. Diagrama de Decisão: Seleção de Metodologia
+
+O fluxo a seguir mapeia a tomada de decisão para a construção de intervalos de confiança:
+
+```mermaid
+graph TD
+    A[O que deseja estimar?] --> B(Media Populacional)
+    A --> C(Proporcao Populacional)
+    B --> D{Desvio padrao conhecido?}
+    D -- Sim --> E[Usar distribuicao Z Normal]
+    D -- Nao --> F[Usar distribuicao t de Student]
+    C --> G[Usar distribuicao Z Normal]
+```
+
+### 6. Estudo de Caso Resolvido: Indústria de Cerveja
+
+Contexto do Problema:
+Uma indústria de cerveja distribui a quantidade de líquido em latas seguindo uma distribuição normal, com média histórica de 350 ml e desvio padrão populacional conhecido de 3 ml. Após suspeita de problemas na linha de produção (possível alteração da média), foi retirada uma amostra de 120 latas, que apresentou média de 346 ml.
+
+Objetivo:
+Fornecer a estimativa pontual e construir o novo Intervalo de Confiança (com 95% de segurança) para a nova média do processo, supondo que o desvio padrão não foi alterado.
+
+Resolução Passo a Passo:
+
+1.  Dados Extraídos:
+    - Média amostral ($\overline{x}$) = 346 ml
+    - Desvio padrão ($\sigma$) = 3 ml
+    - Tamanho amostral ($n$) = 120
+    - Nível de Confiança = 95% (logo, $Z \approx 1,96$)
+2.  Estimativa Pontual:
+    A estimativa pontual é a própria média da amostra coletada. Resposta: 346 ml.
+3.  Cálculo do Erro Padrão (EP):
+    $EP = \frac{\sigma}{\sqrt{n}} = \frac{3}{\sqrt{120}} \approx 0,2738$
+4.  Cálculo da Margem de Erro ($E$):
+    $E = Z \cdot EP \approx 1,96 \cdot 0,2738 \approx 0,5367$
+5.  Definição do Intervalo de Confiança (IC):
+    $IC = \overline{x} \pm E = 346 \pm 0,5367$
+    O intervalo é de $[345,46 \text{ ml} ; 346,53 \text{ ml}]$.
+
+Implementação Computacional de Referência em Python:
+
+    from scipy.stats import norm
+    import numpy as np
+
+    media_amostral = 346
+    desvio_padrao = 3
+    tamanho_amostra = 120
+    confianca = 0.95
+
+    erro_padrao = desvio_padrao / np.sqrt(tamanho_amostra)
+    z_score = norm.ppf((1 + confianca) / 2)
+    margem_erro = z_score * erro_padrao
+
+    limite_inferior = media_amostral - margem_erro
+    limite_superior = media_amostral + margem_erro
+
+    print('Intervalo de Confiança 95%: [', limite_inferior, ' ; ', limite_superior, ']')
+
+### 7. Insights / Conexão com IA e ML
+
+- Amostragem Segura em Machine Learning: Os fundamentos de estimativa são críticos na preparação dos dados. Ao configurar divisões como 'train / validation / test splits', o Cientista de Dados deve ter noção do tamanho amostral mínimo necessário para que a validação seja fidedigna. Amostras muito pequenas em testes geram elevada margem de erro na medição da acurácia do modelo.
+- Limitações da Estimativa Pontual de Modelos: Em ambientes corporativos, é arriscado afirmar que um modelo terá exatamente '92% de precisão'. A abordagem madura (usando teoria de estimativa intervalar) exige reportar a performance com intervalos de confiança (ex: '92% $\pm$ 1,5% de margem de erro, com 95% de confiança').
+- Testes A/B e Experimentação: Conceitos como margem de erro, proporções em populações finitas e o cálculo estrito do '$n$' (tamanho amostral) formam o alicerce matemático da validação de produtos. Quando desenvolvemos um algoritmo de recomendação e desejamos colocá-lo em produção frente ao algoritmo antigo, executamos um Teste A/B cujas decisões de parada dependem inteiramente de ICs estáveis e amostragem adequada.
+
+---
+
 [Previous](./02-probability.md) | [Next](./04-hypothesis-testing-and-linear-regression.md)
