@@ -1,0 +1,18 @@
+{
+  // --- Configurações para Python e Ciência de Dados ---
+
+  // Define o Ruff como formatador padrão para Python
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+
+  // Habilita a formatação ao salvar dentro dos Jupyter Notebooks
+  "notebook.formatOnSave.enabled": true,
+
+  // Organiza os imports (junta e coloca em ordem alfabética) ao salvar
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.ruff": "explicit",
+    "source.fixAll.ruff": "explicit"
+  }
+}
