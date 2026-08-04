@@ -1,0 +1,5 @@
+# Arquivos de banco de dados
+*.mdf
+*.ldf
+*.ndf
+/04-data-preparation-and-integration/sql-server-docker/dados/

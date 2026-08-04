@@ -1,0 +1,15 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_puc_minas
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=PucMinas@2026!
+      - MSSQL_PID=Developer
+    ports:
+      - '1433:1433'
+    volumes:
+      - sql_server_data:/var/opt/mssql # Persistência de dados
+
+volumes:
+  sql_server_data:

@@ -1,4 +1,4 @@
-# Python para Ciência de Dados
+# Preparação e Integração de Dados
 
 - [Unidade I: Fundamentos de coleta de dados](./01-fundamentals.md)
 - [Unidade II: Fontes, aplicações de técnicas e entrega de dados](./02-data-delivery.md)
