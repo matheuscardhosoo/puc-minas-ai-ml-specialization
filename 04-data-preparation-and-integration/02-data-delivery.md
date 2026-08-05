@@ -74,4 +74,4 @@ E --> F[Consumo: BI e Machine Learning]
 
 ---
 
-[Previous](./01-fundamentals.md) | [Next](./03-data-quality.md)
+[Previous](./01-fundamentals.md) | [Next](./03-power-bi.md)
